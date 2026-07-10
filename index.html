@@ -41,13 +41,13 @@
     .card-front h2 { font-size: 26px; margin: 0; }
     .hint-click { margin-top: 25px; font-size: 11px; color: #2563eb; background: #dbeafe; padding: 4px 12px; border-radius: 20px; }
     .card-back { background-color: #f8fafc; color: #1e293b; border: 2px solid #cbd5e1; transform: rotateY(180deg); }
-    .eng-def { font-size: 16px; margin: 0 0 20px 0; line-height: 1.5; font-weight: 500; }
+    .eng-def { font-size: 16px; margin: 0 0 20px 0; line-height: 1.5; font-weight: 500; text-align: left; width: 100%; }
     .translate-btn {
       background-color: #e2e8f0; border: none; color: #475569; padding: 6px 12px;
-      border-radius: 6px; font-size: 12px; cursor: pointer; transition: 0.2s;
+      border-radius: 6px; font-size: 12px; cursor: pointer; transition: 0.2s; margin-bottom: 10px;
     }
     .translate-btn:hover { background-color: #cbd5e1; }
-    .chinese-hint { margin-top: 15px; font-size: 18px; color: #dc2626; font-weight: bold; display: none; }
+    .chinese-hint { margin-top: 5px; font-size: 16px; color: #dc2626; font-weight: bold; display: none; text-align: left; width: 100%; line-height: 1.4; }
     .control-panel {
       display: flex; justify-content: space-between; padding: 15px 20px; background-color: #f8fafc; border-top: 1px solid #e2e8f0;
     }
@@ -75,9 +75,9 @@
           <div class="hint-click">💡 Tap to Flip</div>
         </div>
         <div class="card-back">
-          <p class="eng-def" id="backText">The light ray that travels towards the mirror.</p>
+          <div id="backText" class="eng-def">The light ray that travels towards the mirror.</div>
           <button class="translate-btn" onclick="showChinese(event)">Show Chinese Hint</button>
-          <div class="chinese-hint" id="chineseText">入射光線 ↗️</div>
+          <div id="chineseText" class="chinese-hint">入射光線 ↗️</div>
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@
 const cardData = [
   { front: "Incident Ray", back: "The light ray that travels towards the mirror.", chi: "入射光線 ↗️" },
   { front: "Reflected Ray", back: "The light ray that bounces off the mirror.", chi: "反射光線 ↖️" },
-  { front: "Laws of Reflection", back: "1. Angle of incidence (i) = Angle of reflection (r). <br>2. The incident ray, the normal and the reflected ray all lie in the same plane.", chi: "反射定律：<br>1. 入射角 = 反射角。<br>2. 入射光線、法線和反射光線都在同一平面上。📐" },
+  { front: "Laws of Reflection", back: "1. Angle of incidence (i) = Angle of reflection (r).<br>2. The incident ray, the normal and the reflected ray all lie in the same plane.", chi: "反射定律：<br>1. 入射角 = 反射角。<br>2. 入射光線、法線和反射光線都在同一平面上。📐" },
   { front: "Lateral Inversion", back: "Inside a plane mirror, your LEFT hand becomes the image's RIGHT hand.", chi: "橫向倒置（左右相反）🪞" }
 ];
 
@@ -117,8 +117,8 @@ function updateCard() {
   setTimeout(() => {
     document.getElementById('cardNumDisplay').innerText = `Card ${currentIndex + 1} / ${cardData.length}`;
     document.getElementById('frontText').innerText = cardData[currentIndex].front;
-    document.getElementById('backText').innerText = cardData[currentIndex].back;
-    document.getElementById('chineseText').innerText = cardData[currentIndex].chi;
+    document.getElementById('backText').innerHTML = cardData[currentIndex].back;
+    document.getElementById('chineseText').innerHTML = cardData[currentIndex].chi;
   }, 200);
 }
 
@@ -139,3 +139,4 @@ function prevCard() {
 
 </body>
 </html>
+
