@@ -39,7 +39,12 @@
     .card-front { background-color: #f8fafc; color: #1e3a8a; border: 2px solid #cbd5e1; }
     .card-number { position: absolute; top: 15px; font-size: 12px; color: #64748b; font-weight: bold; }
     .card-front h2 { font-size: 26px; margin: 0; }
-    .hint-click { margin-top: 25px; font-size: 11px; color: #2563eb; background: #dbeafe; padding: 4px 12px; border-radius: 20px; }
+    .audio-btn {
+      background-color: #dbeafe; border: none; color: #1e40af; padding: 6px 14px;
+      border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 15px;
+    }
+    .audio-btn:hover { background-color: #bfdbfe; }
+    .hint-click { margin-top: 15px; font-size: 11px; color: #2563eb; background: #eff6ff; padding: 4px 12px; border-radius: 20px; }
     .card-back { background-color: #f8fafc; color: #1e293b; border: 2px solid #cbd5e1; transform: rotateY(180deg); }
     .eng-def { font-size: 16px; margin: 0 0 20px 0; line-height: 1.5; font-weight: 500; text-align: left; width: 100%; }
     .translate-btn {
@@ -72,6 +77,7 @@
         <div class="card-front">
           <div class="card-number" id="cardNumDisplay">Card 1 / 4</div>
           <h2 id="frontText">Incident Ray</h2>
+          <button class="audio-btn" onclick="speakText(event)">🔊 Listen (English)</button>
           <div class="hint-click">💡 Tap to Flip</div>
         </div>
         <div class="card-back">
@@ -102,6 +108,14 @@ const cardInner = document.getElementById('cardInner');
 
 function flipCard() {
   cardInner.classList.toggle('flipped');
+}
+
+function speakText(event) {
+  event.stopPropagation(); // 防止點擊發音時觸發翻卡
+  const textToSpeak = document.getElementById('frontText').innerText;
+  const utterance = new SpeechSynthesisUtterance(textToSpeak);
+  utterance.lang = 'en-US';
+  window.speechSynthesis.speak(utterance);
 }
 
 function showChinese(event) {
@@ -139,4 +153,3 @@ function prevCard() {
 
 </body>
 </html>
-
