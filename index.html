@@ -1,31 +1,30 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WSC Physics App</title>
   <style>
-    html, body {
+    body {
       margin: 0; padding: 0; background-color: #f0f2f5;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex; justify-content: center;
-      height: 100%; overflow: hidden; /* 防止整個網頁上下滾動 */
     }
     #app {
-      width: 100%; max-width: 375px; height: 100vh; /* 鎖定在手機可視高度 */
+      width: 100%; max-width: 375px; height: 100vh;
       background-color: #ffffff; box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      display: flex; flex-direction: column; overflow: hidden;
+      display: flex; flex-direction: column;
     }
     .header {
       background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      color: white; padding: 12px; text-align: center; flex-shrink: 0;
+      color: white; padding: 15px; text-align: center;
     }
     .header h1 { margin: 0; font-size: 18px; }
-    .header p { margin: 3px 0 0 0; font-size: 12px; opacity: 0.9; }
+    .header p { margin: 5px 0 0 0; font-size: 13px; opacity: 0.9; }
     .card-container {
-      flex: 1; display: flex; justify-content: center; align-items: center; padding: 15px; overflow: hidden;
+      flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
-    .flashcard { width: 100%; height: 85%; max-height: 320px; perspective: 1000px; cursor: pointer; }
+    .flashcard { width: 100%; height: 300px; perspective: 1000px; cursor: pointer; }
     .card-inner {
       position: relative; width: 100%; height: 100%;
       text-align: center; transition: transform 0.4s; transform-style: preserve-3d;
@@ -35,27 +34,27 @@ html<!DOCTYPE html>
       position: absolute; width: 100%; height: 100%;
       -webkit-backface-visibility: hidden; backface-visibility: hidden;
       border-radius: 12px; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;
+      justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
     }
     .card-front { background-color: #f8fafc; color: #1e3a8a; border: 2px solid #cbd5e1; }
-    .card-number { position: absolute; top: 12px; font-size: 11px; color: #64748b; font-weight: bold; }
-    .card-front h2 { font-size: 24px; margin: 0; }
+    .card-number { position: absolute; top: 15px; font-size: 12px; color: #64748b; font-weight: bold; }
+    .card-front h2 { font-size: 26px; margin: 0; }
     .audio-btn {
-      background-color: #dbeafe; border: none; color: #1e40af; padding: 5px 12px;
-      border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 15px;
+      background-color: #dbeafe; border: none; color: #1e40af; padding: 6px 14px;
+      border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 15px;
     }
     .audio-btn:hover { background-color: #bfdbfe; }
     .hint-click { margin-top: 15px; font-size: 11px; color: #2563eb; background: #eff6ff; padding: 4px 12px; border-radius: 20px; }
     .card-back { background-color: #f8fafc; color: #1e293b; border: 2px solid #cbd5e1; transform: rotateY(180deg); }
-    .eng-def { font-size: 14px; margin: 0 0 15px 0; line-height: 1.4; font-weight: 500; text-align: left; width: 100%; }
+    .eng-def { font-size: 16px; margin: 0 0 20px 0; line-height: 1.5; font-weight: 500; text-align: left; width: 100%; }
     .translate-btn {
-      background-color: #e2e8f0; border: none; color: #475569; padding: 5px 10px;
-      border-radius: 6px; font-size: 11px; cursor: pointer; transition: 0.2s; margin-bottom: 8px; flex-shrink: 0;
+      background-color: #e2e8f0; border: none; color: #475569; padding: 6px 12px;
+      border-radius: 6px; font-size: 12px; cursor: pointer; transition: 0.2s; margin-bottom: 10px;
     }
     .translate-btn:hover { background-color: #cbd5e1; }
-    .chinese-hint { margin-top: 0px; font-size: 14px; color: #dc2626; font-weight: bold; display: none; text-align: left; width: 100%; line-height: 1.4; }
+    .chinese-hint { margin-top: 5px; font-size: 16px; color: #dc2626; font-weight: bold; display: none; text-align: left; width: 100%; line-height: 1.4; }
     .control-panel {
-      display: flex; justify-content: space-between; padding: 12px 20px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; flex-shrink: 0;
+      display: flex; justify-content: space-between; padding: 15px 20px; background-color: #f8fafc; border-top: 1px solid #e2e8f0;
     }
     .nav-btn {
       background-color: #1e3a8a; color: white; border: none; padding: 10px 20px;
@@ -112,7 +111,7 @@ function flipCard() {
 }
 
 function speakText(event) {
-  event.stopPropagation();
+  event.stopPropagation(); // 防止點擊發音時觸發翻卡
   const textToSpeak = document.getElementById('frontText').innerText;
   const utterance = new SpeechSynthesisUtterance(textToSpeak);
   utterance.lang = 'en-US';
